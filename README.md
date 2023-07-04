@@ -1,1 +1,1 @@
-This is my C++ tutorial repository
+This is my tutorial repository

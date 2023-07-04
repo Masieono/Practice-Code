@@ -1,1 +1,1 @@
-test
+This is my rust tutorial repository
