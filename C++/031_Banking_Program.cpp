@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 
 /*
     Banking program that allows for depositing, withdrawing, 
@@ -17,13 +18,13 @@ int main () {
     int choice = 0;
 
     do {
-        cout << "BANK PROGRAM 9000\n";
+        cout << "\nBANK PROGRAM 9000\n" << endl;
         cout << "Enter your choice: \n";
         cout << "****************** \n";
         cout << "1. Show balance\n";
         cout << "2. Deposit money\n";
         cout << "3. Withdraw money\n";
-        cout << "4. Exit\n";
+        cout << "4. Exit\n" << endl;
 
         cin >> choice;
 
@@ -40,7 +41,8 @@ int main () {
                 show_balance(balance);
                 break;
             case 4:
-                cout << "Thanks for banking with schlomo :)";
+                cout << "Thanks for banking with Schlomo Shekelstein :)\n" << endl;
+
                 break;
             default:
                 cout << "Sowwy, invalid input uwu :0";
@@ -52,7 +54,12 @@ int main () {
 }
 
 void show_balance(double balance) {
-    cout << "You have " << balance << " dollars in ur account\n\n";
+    if (balance < 1 && balance > 0) {
+        cout << "\nYou have " << setprecision(2) << balance << " cents in ur account\n" << endl;
+    }
+    else {
+        cout << "\nYou have " << fixed << showpoint << setprecision(2) << balance << " dollars in ur account\n" << endl;
+    }
 }
 
 double deposit() {
@@ -76,10 +83,13 @@ double withdraw(double balance) {
     cout << "Enter the withdrawal amount: \n";
     cin >> amount;
 
-    if (amount > 0) {
+    if (amount > 0 && amount < balance) {
         return amount;
     }
-    
+    else if (amount > balance) {
+        cout << "You don't have enough money zaddy :(\n";
+        return 0;
+    }
     else {
         cout << "uwu that's not a valid number :(\n";
         return 0;
