@@ -79,10 +79,7 @@ double withdraw(double balance) {
     if (amount > 0) {
         return amount;
     }
-    else if (amount > balance) {
-        cout << "sowwy, insufficient funds :(\n";
-        return 0;
-    }
+    
     else {
         cout << "uwu that's not a valid number :(\n";
         return 0;
