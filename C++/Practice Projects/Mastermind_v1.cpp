@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <chrono>
+#include <random>
 
 /*
     Terminal-based game that will play mastermind with you
@@ -12,21 +13,23 @@
 
 using namespace std;
 
-void intro_sequence() {
-    cout << "\n\n\n\n";
+void intro_sequence() 
+{
+    cout << "\n\n\n";
     cout << "**********************" << endl;
     cout << "***** MASTERMIND *****" << endl;
     cout << "**********************" << endl;
-    cout << "\n\n";
+    cout << "\n\n\n";
 }
 
-int set_num_pins() {
-
-    cout << "Select difficulty: " << endl;
+int set_num_pins()
+{
+    cout << "Select difficulty: \n" << endl;
     cout << "'E' for easy (three pins)" << endl;
     cout << "'N' for normal (four pins)" << endl;
     cout << "'H' for hard (five pins)" << endl;
     cout << "'X' for extra hard (six pins)" << endl;
+    cout << endl;
 
     char input;
     cin >> input;
@@ -41,79 +44,31 @@ int set_num_pins() {
 
 }
 
-//still needs work
-void win_sequence(int num_guesses) {
-
-    cout << "YOU WIN! YOU ARE THE" << endl;
-    cout << "**** MASTERMIND ****\n" << endl;
-
-
-    cout << "Number of guesses: " << endl; //need to insert num_guesses
-    cout << "Total time: " << endl; //need to insert amount of time it took
-
-    cout << "Would you like to play again? Type Y or N" << endl;
-    char input;
-    cin >> input;
+void outro_sequence()
+{
+    cout << "\n\n\n";
+    cout << "**********************" << endl;
+    cout << "* THANKS FOR PLAYING *" << endl;
+    cout << "**********************" << endl;
+    cout << "***** MASTERMIND *****" << endl;
+    cout << "**********************" << endl;
+    cout << "\n\n\n";
 }
 
-//still needs work
-void lose_sequence() {
+// needs work, likely have to switch to vectors
+void randomize_computer_colors(string colors[], int num_pins) {
 
-    cout << "YOU LOSE! YOU AREN'T THE" << endl;
-    cout << "****** MASTERMIND ******\n" << endl;
+    random_device random;
+    mt19937 generator(random());
+    uniform_int_distribution<int> distribution(0, (sizeof(colors)/sizeof(colors[0])) - 1);
 
-    cout << "Computer's colors: " << endl; //need to show computer generated colors
-    cout << "Total time: " << endl; //need to insert amount of time it took
+    string computer_colors[num_pins];
 
-    cout << "Would you like to play again? Type Y or N" << endl;
-    char input;
-    cin >> input;
-
-    // offer a "play again" feature
-}
-
-//still needs work
-int generate_computer_colors(int random_values[], int num_colors) {
-
-    /*
-        function that will generate random series of colors
-    */
-   
-    srand(time(NULL));    
-
-    for(int i = 0; i < num_colors; i++) {
-        random_values[i] = rand() % num_colors;
+    for(int i = 0; i < num_pins; i++) {
+        int temp = distribution(generator);
+        computer_colors[i] = colors[temp];
     }
-    
 }
-
-//still needs work
-bool play_against_computer(int num_turns) {
-
-
-    //this is the mode where a player guesses for num_turns
-    
-        // run the generate_computer_colors function to get computer colors
-
-        // time code starts when the first guess is entered
-
-        // loop through guesses where a user input is compared to the computer array
-
-        // run a function to check if pins are correct color in correct spot, returns a number of "black" pins
-
-        // run a function to check if pins are correct color in incorrect spot, returns a number of "white" pins
-
-        // cout the turn number, black, and white pins.
-
-        // if there is a complete match, run the win condition function and ask to play again.
-
-        // if max guesses is reached without an exact match, run the lose function and ask to play again.
-
-
-
-    //return true for a win, false for a lose
-}
-
 
 int main () {
 
@@ -124,7 +79,8 @@ int main () {
     int num_colors = sizeof(colors)/sizeof(colors[0]);
 
     int num_turns;
-    switch(num_pins) {
+    switch(num_pins) 
+    {
         case 'N': 
             num_turns = 10;
             break;
@@ -139,10 +95,40 @@ int main () {
             break;
     }
 
+    bool play_again = true;
+    while(play_again) 
+    {
+        play_against_computer(num_pins, num_turns, num_colors);
+        
 
+        play_again = ask_to_play_again(); 
+        //anything other than Y or y returns false, exiting the loop
+    }
+
+    outro_sequence();
 
     return 0;    
 }
+
+void play_against_computer(int num_pins, int num_turns, int num_colors) {
+
+    //generate a random array of colors for the computer
+
+
+    //run through each turn 
+    for(int i = 0; i < num_turns; i++) {
+
+
+
+
+
+    }
+
+
+    
+}
+
+
 /*
     //at beginning of loop
     cout << "Type out colors separated by a space" <<endl;
@@ -154,3 +140,35 @@ int main () {
     cout << "Enter your guess:" << endl; 
 
 */
+
+
+void win_sequence(int num_guesses) //still needs work
+{
+    // auto end_time = chrono::high_resolution_clock::now();
+
+    cout << "YOU WIN! YOU ARE THE" << endl;
+    cout << "**** MASTERMIND ****\n" << endl;
+
+    cout << "Number of guesses: " << endl; //need to insert num_guesses
+    cout << "Total time: " << endl; //need to insert amount of time it took
+}
+
+
+void lose_sequence() //still needs work
+{
+    //auto end_time = chrono::high_resolution_clock::now();
+
+    cout << "YOU LOSE! YOU AREN'T THE" << endl;
+    cout << "****** MASTERMIND ******\n" << endl;
+
+    cout << "Computer's colors: " << endl; //need to show computer generated colors
+    cout << "Total time: " << endl; //need to insert amount of time it took
+}
+
+
+bool ask_to_play_again() {
+    cout << "\nWould you like to play again? Type Y or N" << endl;
+    char input;
+    cin >> input;
+    return (input == 'Y' || input == 'y');
+}
