@@ -10,13 +10,18 @@ using namespace std;
 void draw_board(char *spaces)
 {
     cout << endl;
-    cout << "     |     |     " << endl;
-    cout << "  " << spaces[0] << "  |  " << spaces[1] << "  |  " << spaces[2] << "  " << endl;
-    cout << "-----|-----|-----" << endl;
-    cout << "  " << spaces[3] << "  |  " << spaces[4] << "  |  " << spaces[5] << "  " << endl;
-    cout << "-----|-----|-----" << endl;
-    cout << "  " << spaces[6] << "  |  " << spaces[7] << "  |  " << spaces[8] << "  " << endl;
-    cout << "     |     |     " << endl;
+    cout << "1      |2      |3      " << endl;
+    cout << "   " << spaces[0] << "   |   " << spaces[1] << "   |   " << spaces[2] << "   " << endl;
+    cout << "       |       |       " << endl;
+    cout << "-------|-------|-------" << endl;
+    cout << "4      |5      |6      " << endl;
+    cout << "   " << spaces[3] << "   |   " << spaces[4] << "   |   " << spaces[5] << "   " << endl;
+    cout << "       |       |       " << endl;
+    cout << "-------|-------|-------" << endl;
+    cout << "7      |8      |9      " << endl;
+    cout << "   " << spaces[6] << "   |   " << spaces[7] << "   |   " << spaces[8] << "   " << endl;
+    cout << "       |       |       " << endl;
+    cout << "       |       |       " << endl;
     cout << endl;
 
 }
