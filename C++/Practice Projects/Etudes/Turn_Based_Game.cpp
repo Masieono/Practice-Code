@@ -58,7 +58,7 @@ void display_result(int num_turns, const vector<string>& your_data)
 {
     cout << "\n\nCongration, you have completed the turn-based game." << endl; 
     cout << "This game lasted " << your_data.size() << " turns." << endl;
-    cout << "Here are the inputs you have entered: " << endl;
+    cout << "Here are the inputs you have entered: " << endl << endl;
     
 
     for(int i = 0; i < your_data.size(); i++)
