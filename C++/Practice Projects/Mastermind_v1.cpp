@@ -4,6 +4,8 @@
 #include <random>
 #include <sstream>
 #include <iomanip>
+#include <unordered_map>
+#include <string>
 
 /*
     Terminal-based game that will play mastermind with you
@@ -21,7 +23,7 @@ void intro_sequence()
     cout << "**********************" << endl;
     cout << "***** MASTERMIND *****" << endl;
     cout << "**********************" << endl;
-    cout << "\n\n\n";
+    cout << "\n";
 }
 
 int set_num_pins()
@@ -34,8 +36,8 @@ int set_num_pins()
     cout << endl;
 
     char input;
-    cin >> input;
-
+    cin >> input; 
+    
     switch(input) {
         case 'E': return 3;
         case 'e': return 3;
@@ -49,27 +51,44 @@ int set_num_pins()
     }
 }
 
-int how_many_turns(int num_pins)
-{
-    switch(num_pins) 
-    {
-        case 'N': return 10;
-        case 'n': return 10;
-        case 'H': return 15;
-        case 'h': return 15;
-        case 'X': return 20;
-        case 'x': return 20;
-        default: return 5;
+int how_many_turns(int num_pins) {
+    switch (num_pins) {
+        case 3: return 10;
+        case 4: return 10;
+        case 5: return 15;
+        case 6: return 20;
+        default: return 10;
     }
 }
 
-int check_for_black_pins(const vector<string>& colors, const vector<string>& computer_colors)
+vector<string> get_player_guess(int num_pins)
+{
+    vector<string> guess; // the final product in correct data type
+
+    // cin.ignore();
+    cout << "Type out colors separated by a space: " <<endl;
+    string input;
+    getline(cin, input); // the full line guess (green red black yellow)
+
+    istringstream iss(input);
+    string element;
+
+    while (iss >> element)
+    {
+        transform(element.begin(), element.end(), element.begin(), ::tolower);
+        guess.push_back(element);
+    }
+
+    return guess;
+}
+
+int check_for_black_pins(const vector<string>& guess, const vector<string>& computer_colors)
 {
     int black_pins = 0;
 
     for(int i = 0; i < computer_colors.size(); i++)
     {
-        if(colors[i] == computer_colors[i])
+        if(guess[i] == computer_colors[i])
         {
             black_pins++;
         }
@@ -91,7 +110,7 @@ int check_for_white_pins(const vector<string>& guess, const vector<string>& comp
     
         for(int j = 0; j < computer_colors.size(); j++) //scan through computer colors
         {
-            if(!scanned[j] && guess[i] == computer_colors[j]) //check for previously found white pins
+            if(!scanned[j] && guess[i] == computer_colors[j] && guess[j] != computer_colors[j]) //check for previously found white pins
             {
                 white_pins++;
                 scanned[j] = true;
@@ -101,6 +120,35 @@ int check_for_white_pins(const vector<string>& guess, const vector<string>& comp
     }
 
     return white_pins;
+}
+
+vector<string> convert_player_guess(const vector<string>& colors, const vector<string>& guess, int num_pins)
+{
+    vector<string> abbr_colors = {"blk", "wht", "red", "grn", "blu", "ylo"};
+
+    vector<string> converted_guess;
+
+    for (const string& guess_color : guess)
+    {
+        bool color_found = false;
+
+        for (int i = 0; i < colors.size(); i++)
+        {
+            if(guess_color == colors[i])
+            {
+                converted_guess.push_back(abbr_colors[i]);
+                color_found = true;
+                break;
+            }
+        }
+
+        if(!color_found)
+        {
+            converted_guess.push_back(guess_color.substr(0, 3));
+        }
+    }
+
+    return converted_guess;
 }
 
 bool ask_to_play_again() {
@@ -132,6 +180,31 @@ string calculate_time_delta(const chrono::high_resolution_clock::time_point &sta
 
 }
 
+void draw_guess(const vector<string>& colors, const vector<string>& converted_guess, int turn_number, int black_pins, int white_pins)
+{
+    cout << "Turn number: " << turn_number << "    |";
+
+    for(int i = 0; i < converted_guess.size(); i++) {
+
+        cout << " --" << converted_guess[i] << "-- |";
+
+    }
+    cout << endl;
+
+    cout << "Black pins: " << black_pins << "   " << endl;
+    cout << "White pins: " << white_pins << "   " << endl;
+    cout << endl;
+
+    /*
+        expected output:
+
+        turn number x   | --red-- | --red-- | --grn-- | --grn-- |  
+        Black pins: y
+        White pins: z
+    */
+
+}
+
 void win_sequence(int num_guesses, const chrono::high_resolution_clock::time_point& start_time)
 {
     auto end_time = chrono::high_resolution_clock::now();
@@ -144,7 +217,7 @@ void win_sequence(int num_guesses, const chrono::high_resolution_clock::time_poi
     cout << "Total time: " << time_delta << endl;
 }
 
-void lose_sequence(vector<string>& computer_colors, const chrono::high_resolution_clock::time_point& start_time)
+void lose_sequence(const vector<string>& computer_colors, const chrono::high_resolution_clock::time_point& start_time)
 {
     auto end_time = chrono::high_resolution_clock::now();
     string time_delta = calculate_time_delta(start_time, end_time);
@@ -185,14 +258,25 @@ vector<string> generate_computer_colors(const vector<string>& colors, int num_pi
         int temp = distribution(generator);
         computer_colors.push_back(colors[temp]);
     }
+
+/*  
+    cheat mode to display computer colors
+
+    for(const string single_color : computer_colors)
+    {
+        cout << single_color << " ";
+    }
+    cout << endl;
+*/
+
     return computer_colors;
 }
 
 int main () {
 
-    intro_sequence();
-
     vector<string> colors = {"black", "white", "red", "green", "blue", "yellow"};
+
+    intro_sequence();
 
     bool playing = true;
     while(playing) 
@@ -201,14 +285,14 @@ int main () {
         int num_turns = how_many_turns(num_pins);
 
         vector<string> computer_colors = generate_computer_colors(colors, num_pins);
-        // generate a color vector for the computer
 
         auto start_time = chrono::high_resolution_clock::now();    
+
+        cin.ignore();
 
         for(int turn_number = 1; turn_number <= num_turns; turn_number++) // a single game loop
         {
             vector<string> guess = get_player_guess(num_pins);
-            //still needs work
 
             int black_pins = check_for_black_pins(guess, computer_colors);
             int white_pins = check_for_white_pins(guess, computer_colors);
@@ -216,15 +300,17 @@ int main () {
             if(black_pins == num_pins)
             {
                 win_sequence(turn_number, start_time);
+                break;
             }
 
             if(turn_number == num_turns && black_pins != num_pins)
             {
                 lose_sequence(computer_colors, start_time);
             }
-            
-            draw_guess(colors, guess, turn_number, black_pins, white_pins);
-            //still needs work
+
+            vector<string> converted_guess = convert_player_guess(colors, guess, num_pins);
+
+            draw_guess(colors, converted_guess, turn_number, black_pins, white_pins);
         }
 
         playing = ask_to_play_again(); 
@@ -233,62 +319,4 @@ int main () {
     outro_sequence();
 
     return 0;        
-}
-
-void draw_guess(const vector<string>& colors, const vector<string>& guess, int turn_number, int black_pins, int white_pins)
-{
-    vector<string> abbr_colors = {"blk", "wht", "red", "grn", "blu", "ylo"};
-
-
-    cout << "Turn number: " << turn_number << "    |";
-
-    for(int i = 0; i < guess.size(); i++) {
-
-        cout << " --" << guess[i] << "-- |";
-
-    }
-
-    //format guess into output
-
-    /*
-        expected output:
-
-        turn number x   | --red-- | --red-- | --grn-- | --grn-- |  
-        Black pins: y
-        White pins: z
-    
-    */
-
-
-
-    cout << "Black pins: " << black_pins << "   " << endl;
-    cout << "White pins: " << white_pins << "   " << endl;
-    cout << endl;
-}
-
-vector<string> get_player_guess(int num_pins)
-{
-    vector<string> guess; // the final product in correct data type
-
-    cout << "Type out colors separated by a space: " <<endl;
-    string input;
-    getline(cin, input); // the full line guess (green red black yellow)
-
-    istringstream iss(input);
-    string element; // will hold one word of the input string
-
-    while(iss >> element)
-    {
-        transform(element.begin(), element.end(), element.begin(), ::tolower);
-        guess.push_back(element);
-    }
-
-    /*
-        still need a way to break down user guess into a 
-        vector<string> of the first num_pins
-
-        cast all of the elements to lower case
-    */
-
-    return guess;
 }
