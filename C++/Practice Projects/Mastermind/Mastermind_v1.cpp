@@ -19,7 +19,7 @@ using namespace std;
 
 void intro_sequence() 
 {
-    cout << "\n\n\n";
+    cout << "\n";
     cout << "**********************" << endl;
     cout << "***** MASTERMIND *****" << endl;
     cout << "**********************" << endl;
@@ -35,6 +35,7 @@ int set_num_pins()
     cout << "'X' for extra hard (six pins)" << endl;
     cout << endl;
 
+    cout << "Input: ";
     char input;
     cin >> input; 
     
@@ -66,7 +67,7 @@ vector<string> get_player_guess(int num_pins)
     vector<string> guess; // the final product in correct data type
 
     // cin.ignore();
-    cout << "Type out colors separated by a space: " <<endl;
+    cout << "Type out colors separated by a space: ";
     string input;
     getline(cin, input); // the full line guess (green red black yellow)
 
@@ -205,16 +206,24 @@ void draw_guess(const vector<string>& colors, const vector<string>& converted_gu
 
 }
 
-void win_sequence(int num_guesses, const chrono::high_resolution_clock::time_point& start_time)
+void win_sequence(const vector<string>& computer_colors, int num_guesses, const chrono::high_resolution_clock::time_point& start_time)
 {
     auto end_time = chrono::high_resolution_clock::now();
     string time_delta = calculate_time_delta(start_time, end_time);
 
-    cout << "YOU WIN! YOU ARE THE" << endl;
+    cout << "\nYOU WIN! YOU ARE THE" << endl;
     cout << "**** MASTERMIND ****\n" << endl;
 
     cout << "Number of guesses: " << num_guesses << endl;
     cout << "Total time: " << time_delta << endl;
+    cout << "Computer's colors: ";
+
+    for(const string color : computer_colors)
+    {
+        cout << color << " ";
+    }
+    cout << endl;
+
 }
 
 void lose_sequence(const vector<string>& computer_colors, const chrono::high_resolution_clock::time_point& start_time)
@@ -290,7 +299,7 @@ int main () {
 
         cin.ignore();
 
-        for(int turn_number = 1; turn_number <= num_turns; turn_number++) // a single game loop
+        for(int turn_number = 1; turn_number <= num_turns; turn_number++)
         {
             vector<string> guess = get_player_guess(num_pins);
 
@@ -299,23 +308,19 @@ int main () {
 
             if(black_pins == num_pins)
             {
-                win_sequence(turn_number, start_time);
+                win_sequence(computer_colors, turn_number, start_time);
                 break;
             }
-
             if(turn_number == num_turns && black_pins != num_pins)
             {
                 lose_sequence(computer_colors, start_time);
             }
-
             vector<string> converted_guess = convert_player_guess(colors, guess, num_pins);
 
             draw_guess(colors, converted_guess, turn_number, black_pins, white_pins);
         }
-
         playing = ask_to_play_again(); 
     }
-
     outro_sequence();
 
     return 0;        
