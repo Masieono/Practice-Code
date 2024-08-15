@@ -37,7 +37,6 @@ int interpolation_search(int array[], int array_size, int input)
     return -1;
 }
 
-
 int main () {
 
     int array[10000];
