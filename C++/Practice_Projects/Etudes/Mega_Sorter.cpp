@@ -141,8 +141,6 @@ void ascending_bubble_sort(const std::vector<int>& input)
     cout << "Ascending bubble sort complete." << endl;
     cout << "Time to complete: ";
     print_duration(std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time));
-
-    // print_array(sorted_array);
 }
 
 void descending_bubble_sort(const std::vector<int>& input)
@@ -171,8 +169,6 @@ void descending_bubble_sort(const std::vector<int>& input)
     cout << "Descending bubble sort complete." << endl;
     cout << "Time to complete: ";
     print_duration(std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time));
-
-    // print_array(sorted_array);
 }
 
 void ascending_selection_sort(const std::vector<int>& input)
@@ -205,8 +201,6 @@ void ascending_selection_sort(const std::vector<int>& input)
     cout << "Ascending selection sort complete." << endl;
     cout << "Time to complete: ";
     print_duration(std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time));
-
-//    print_array(sorted_array);
 }
 
 void descending_selection_sort(const std::vector<int>& input)
@@ -280,7 +274,7 @@ void descending_insertion_sort(const std::vector<int>& input)
     auto start_time = std::chrono::high_resolution_clock::now();
 
     // actual sort algo
-
+    cout << "Descending insertion sort coming soon" << endl;
 
 
     auto end_time = std::chrono::high_resolution_clock::now();
@@ -300,7 +294,7 @@ void ascending_merge_sort(const std::vector<int>& input)
     auto start_time = std::chrono::high_resolution_clock::now();
 
     // actual sort algo
-
+    cout << "Ascending merge sort coming soon" << endl;
 
 
 
@@ -321,7 +315,7 @@ void descending_merge_sort(const std::vector<int>& input)
     auto start_time = std::chrono::high_resolution_clock::now();
 
     // actual sort algo
-
+    cout << "Descending merge sort coming soon" << endl;
 
 
     auto end_time = std::chrono::high_resolution_clock::now();
@@ -341,7 +335,7 @@ void ascending_quick_sort(const std::vector<int>& input)
     auto start_time = std::chrono::high_resolution_clock::now();
 
     // actual sort algo
-
+    cout << "Ascending quick sort coming soon" << endl;
 
 
     auto end_time = std::chrono::high_resolution_clock::now();
@@ -361,7 +355,7 @@ void descending_quick_sort(const std::vector<int>& input)
     auto start_time = std::chrono::high_resolution_clock::now();
 
     // actual sort algo
-
+    cout << "Descending quick sort coming soon" << endl;
 
     auto end_time = std::chrono::high_resolution_clock::now();
 
@@ -380,7 +374,7 @@ void ascending_heap_sort(const std::vector<int>& input)
     auto start_time = std::chrono::high_resolution_clock::now();
 
     // actual sort algo
-
+    cout << "Ascending heap sort coming soon" << endl;
 
     auto end_time = std::chrono::high_resolution_clock::now();
 
@@ -399,7 +393,7 @@ void descending_heap_sort(const std::vector<int>& input)
     auto start_time = std::chrono::high_resolution_clock::now();
 
     // actual sort algo
-
+    cout << "Descending heap sort coming soon" << endl;
 
 
     auto end_time = std::chrono::high_resolution_clock::now();
