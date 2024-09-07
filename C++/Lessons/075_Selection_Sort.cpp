@@ -25,7 +25,7 @@ void ascending_selection_sort(std::vector<int>& input)
     {
         int min = i;
 
-        for(int j = (i + 1); j < input.size() ; j++)
+        for(int j = (i + 1); j < input.size(); j++)
         {
             if(input[min] > input[j])
             {

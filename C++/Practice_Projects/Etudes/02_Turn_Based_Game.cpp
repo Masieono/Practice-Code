@@ -3,7 +3,6 @@
 #include <iomanip>
 #include <vector>
 
-
 /*
     Demonstration of a turn-based terminal game. 
 
