@@ -272,7 +272,7 @@ void ascending_insertion_sort(const std::vector<int>& input)
     print_array(sorted_array);
 }
 
-void descending_insertion_sort(std::vector<int>& input)
+void descending_insertion_sort(const std::vector<int>& input)
 {
     cout << "Starting descending insertion sort." << endl;
     std::vector<int> sorted_array = input;
@@ -294,44 +294,122 @@ void descending_insertion_sort(std::vector<int>& input)
 
 void ascending_merge_sort(const std::vector<int>& input)
 {
+    cout << "Starting ascending merge sort." << endl;
+    std::vector<int> sorted_array = input;
+
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+    // actual sort algo
 
 
+
+
+    auto end_time = std::chrono::high_resolution_clock::now();
+
+    cout << "Ascending merge sort complete." << endl;
+    cout << "Time to complete: ";
+    print_duration(std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time));
+
+    print_array(sorted_array);
 }
 
 void descending_merge_sort(const std::vector<int>& input)
 {
+    cout << "Starting descending merge sort." << endl;
+    std::vector<int> sorted_array = input;
+
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+    // actual sort algo
 
 
+
+    auto end_time = std::chrono::high_resolution_clock::now();
+
+    cout << "Descending merge sort complete." << endl;
+    cout << "Time to complete: ";
+    print_duration(std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time));
+
+    print_array(sorted_array);
 }
 
 void ascending_quick_sort(const std::vector<int>& input)
 {
+    cout << "Starting ascending quick sort." << endl;
+    std::vector<int> sorted_array = input;
+
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+    // actual sort algo
 
 
+
+    auto end_time = std::chrono::high_resolution_clock::now();
+
+    cout << "Ascending quick sort complete." << endl;
+    cout << "Time to complete: ";
+    print_duration(std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time));
+
+    print_array(sorted_array);
 }
 
 void descending_quick_sort(const std::vector<int>& input)
 {
+    cout << "Starting descending quick sort." << endl;
+    std::vector<int> sorted_array = input;
+
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+    // actual sort algo
 
 
+    auto end_time = std::chrono::high_resolution_clock::now();
 
+    cout << "Descending quick sort complete." << endl;
+    cout << "Time to complete: ";
+    print_duration(std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time));
+
+    print_array(sorted_array);
 }
 
 void ascending_heap_sort(const std::vector<int>& input)
 {
+    cout << "Starting ascending heap sort." << endl;
+    std::vector<int> sorted_array = input;
+
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+    // actual sort algo
 
 
+    auto end_time = std::chrono::high_resolution_clock::now();
 
+    cout << "Ascending heap sort complete." << endl;
+    cout << "Time to complete: ";
+    print_duration(std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time));
+
+    print_array(sorted_array);
 }
 
 void descending_heap_sort(const std::vector<int>& input)
 {
+    cout << "Starting descending heap sort." << endl;
+    std::vector<int> sorted_array = input;
+
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+    // actual sort algo
 
 
 
+    auto end_time = std::chrono::high_resolution_clock::now();
 
+    cout << "Descending heap sort complete." << endl;
+    cout << "Time to complete: ";
+    print_duration(std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time));
+
+    print_array(sorted_array);
 }
-
 
 
 bool ask_to_go_again()
