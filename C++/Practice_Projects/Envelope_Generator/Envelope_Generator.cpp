@@ -16,7 +16,6 @@
     Also needs a way to source info about timing and slope,
     akin to the "lookat_knobs" function in old version
 
-
 */
 
 using namespace std;

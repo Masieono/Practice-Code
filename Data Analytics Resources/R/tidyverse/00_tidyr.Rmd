@@ -1,0 +1,1 @@
+drop_na() will drop rows missing information 

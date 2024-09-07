@@ -14,11 +14,38 @@
 
 using namespace std;
 
+
 void intro_sequence()
 {
     cout << "Welcome to word analyzer 9000." << endl;
     cout << "You have chosen well to open this application." << endl;
-    cout << endl << endl;
+    cout << endl;
+}
+
+vector<char> get_magic_letter()
+{
+    cout << "Please enter a magic letter to be used for analysis:" << endl;
+
+    //may need to be a vector<char> in order to have both upper and lower case letter variants
+    char input;
+    cin >> input;
+
+
+    //run a check to see if the letter is not a number or symbol
+    //if it is, re-prompt the user to enter a proper letter
+
+    cout << "That's not actually a letter...try again" << endl;
+
+    /*
+        once the user inputs an actual letter,
+        the letter is paired with upper or lower case variant
+        i.e. input = 'p' is paired with 'P' in a vector<char>
+        the vector<char> is returned as the magic_letter
+    */
+
+    vector<char> magic_letter;
+
+    return magic_letter;
 }
 
 vector<string> get_user_string()
@@ -77,7 +104,7 @@ void display_final_analysis(int num_words, const vector<string>& magic_words)
 
 bool new_analysis_prompt()
 {
-    cout << "Would you like to run analysis on a different input Y or N\n";
+    cout << "Would you like to run analysis on a different input? Y or N\n";
 
     char input;
     cin >> input;
@@ -91,6 +118,10 @@ int main () {
     bool running = true;
     while(running) 
     {
+        
+        // Capture an input character to be used as the "magic letter"
+        // vector<char> magic_letter = get_magic_letter();
+
         // Capture an input string and convert it to vector of individual words
         vector<string> input = get_user_string(); 
 
@@ -99,7 +130,7 @@ int main () {
         vector<string> magic_words = find_magic_words(input);
 
         // every above function will need to be passed to the below function
-        display_final_analysis(num_words, magic_words);
+        display_final_analysis(num_words, /*magic_letter,*/ magic_words);
 
         // Ask to run program again on a new input
         running = new_analysis_prompt();
