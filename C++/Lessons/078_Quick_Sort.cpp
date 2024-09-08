@@ -30,17 +30,12 @@ int partition(std::vector<int>& input, int start, int end)
         if(input[j] < pivot)
         {
             i++;
-            int temp = input[i];
-            input[i] = input[j];
-            input[j] = temp;
+            std::swap(input[i], input[j]);
         }
     }
     i++;
-
-    int temp = input[i];
-    input[i] = input[end];
-    input[end] = temp;
-
+    std::swap(input[i], input[end]);
+    
     return i;    
 }
 

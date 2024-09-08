@@ -20,7 +20,6 @@ void print_vector(std::vector<int>& input)
     std::cout << std::endl;
 }
 
-
 void merge(std::vector<int>& left_array, std::vector<int>& right_array, std::vector<int>& array)
 {
     int left_size = array.size()/2;

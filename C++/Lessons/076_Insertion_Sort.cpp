@@ -9,13 +9,12 @@
 
     Less steps than bubble sort and selection sort, but still a 'bad' sorting algo.
     0(n^2) and bad for big data
-
 */
 
 using std::cout;
 using std::endl;
 
-void print_vector(std::vector<int>& input)
+void print_vector(const std::vector<int>& input)
 {
     for(int i : input)
     {
@@ -24,20 +23,43 @@ void print_vector(std::vector<int>& input)
     cout << endl;
 }
 
-void ascending_insertion_sort(std::vector<int>& input)
+void ascending_insertion_sort(const std::vector<int>& input)
 {
+    std::vector<int> sorted_array = input;
+
     for(int i = 1; i < input.size(); i++)
     {
-        int temp = input[i];
+        int temp = sorted_array[i];
         int j = i - 1;
 
-        while(j >= 0 && input[j] > temp)
+        while(j >= 0 && sorted_array[j] > temp)
         {
-            input[j + 1] = input[j];
+            sorted_array[j + 1] = sorted_array[j];
             j--;
         }
-        input[j +  1] = temp;
+        sorted_array[j +  1] = temp;
     }
+    print_vector(sorted_array);
+}
+
+void descending_insertion_sort(const std::vector<int>& input)
+{
+    std::vector<int> sorted_array = input;
+
+    for(int i = 1; i < sorted_array.size(); i++)
+    {
+        int temp = sorted_array[i];
+        int j = i - 1;
+
+        while(j >= 0 && sorted_array[j] < temp)
+        {
+            sorted_array[j + 1] = sorted_array[j];
+            j--;
+        }
+        sorted_array[j + 1] = temp;
+    }
+
+    print_vector(sorted_array);
 }
 
 int main () {
@@ -46,7 +68,8 @@ int main () {
     print_vector(my_vector);
 
     ascending_insertion_sort(my_vector);
-    print_vector(my_vector);
+
+    descending_insertion_sort(my_vector);
 
     return 0;
 }
