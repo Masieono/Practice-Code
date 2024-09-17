@@ -84,7 +84,6 @@ int main()
 {
     intro_sequence();
 
-
     bool running = true;
     while(running)
     {
