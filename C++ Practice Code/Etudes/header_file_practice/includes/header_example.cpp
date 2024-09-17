@@ -2,6 +2,8 @@
 #include <vector>
 #include <sstream>
 
+#include "header_example.h"
+
 /*
     This is the actual implementation file, where the 'guts'
     of each function must be defined. 

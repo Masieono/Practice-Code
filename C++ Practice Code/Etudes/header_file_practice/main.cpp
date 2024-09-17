@@ -1,5 +1,5 @@
 #include <iostream>
-#include "includes/header_example.hpp"
+#include "includes/header_example.h"
 
 /*
     common #include convention is to use
@@ -8,6 +8,9 @@
 
     no other functions exist within the main file
     everything is called from elsewhere
+
+    must use this to compile -
+    g++ -Iincludes main.cpp includes/header_example.cpp -o main.exe
 */
 
 int main (){

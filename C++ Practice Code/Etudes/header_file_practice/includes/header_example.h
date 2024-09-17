@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 
+#ifndef HEADER_EXAMPLE_H
+#define HEADER_EXAMPLE_H
+
 //^ prevents the file from being included multiple times in compilation
 
 /*
@@ -18,17 +21,12 @@
 */
 
 int get_num_one();
-
 int get_num_two();
-
 int add_2_nums(int x, int y);
-
 void print_sum(int sum);
-
 std::vector<std::string> get_text();
-
 void print_message(const std::vector<std::string>& message);
-
 bool prompt_to_go_again();
-
 void outtro_sequence();
+
+#endif
