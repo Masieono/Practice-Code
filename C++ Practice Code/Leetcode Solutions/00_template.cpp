@@ -9,7 +9,7 @@
 bool ask_to_go_again()
 {
     char input;
-    cout << "Would you like to do this again? Y or N" << endl;
+    std::cout << "Would you like to do this again? Y/N" << std::endl;
 
     while(true)
     {
