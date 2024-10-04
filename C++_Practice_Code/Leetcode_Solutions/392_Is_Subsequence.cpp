@@ -85,12 +85,10 @@ int main ()
         std::string input_1 = get_user_string();
         std::string input_2 = get_user_string();
 
-
         cout << (is_subsequence(input_1, input_2) ? "Certified subsequence" : "No subsequence found") << endl;
 
         running = ask_to_go_again();
     }
-
 
     cout << "Program ended." << endl;
     return 0;
